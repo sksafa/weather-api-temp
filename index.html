@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            height: 100vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+        <div class="col-md-6 m-auto py-5">
+            <from>
+            <div class="input-group mb-3">
+                <input type="text" id="cityName" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="searchTemp" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="temCityName"></h1>
+            <h3><span id="tempCelsius"></span>&deg;C</h3>
+            <h1 class="lead" id="weatherStatus"></h1>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    document.getElementById('searchTemp').addEventListener('click',function(){
+        const apiKey = 'ea87812505617e5cf10f2b3beb48d937'; 
+        const cityName = document.getElementById('cityName').value;
+        if(cityName ==''){
+            alert('please Enter a valid city');
+        }else{
+            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+            .then(res => res.json())
+            .then(data => {
+            const name = data.name;
+            document.getElementById('temCityName').innerText=name;
+            const condition = data.weather[0];
+            const status = condition.description;
+            const temp = data.main.temp;
+            const celsius = temp - 273.15;
+            const newCelsius = celsius.toFixed(2);
+            document.getElementById('tempCelsius').innerText=newCelsius;
+            document.getElementById('weatherStatus').innerText=status;
+
+        })
+        .catch(error => alert('please enter a valid name'))
+
+        }
+    })
+
+    </script>
+</body>
+</html>
