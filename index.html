@@ -33,7 +33,7 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <img id="weatherIcon" src=" " alt="">
             <h1 id="temCityName"></h1>
             <h3><span id="tempCelsius"></span>&deg;C</h3>
             <h1 class="lead" id="weatherStatus"></h1>
@@ -61,7 +61,8 @@
             const newCelsius = celsius.toFixed(2);
             document.getElementById('tempCelsius').innerText=newCelsius;
             document.getElementById('weatherStatus').innerText=status;
-
+            const image = data.weather[0].icon
+            document.getElementById('weatherIcon').setAttribute('src',`https://openweathermap.org/img/wn/${image}@2x.png`)
         })
         .catch(error => alert('please enter a valid name'))
 
